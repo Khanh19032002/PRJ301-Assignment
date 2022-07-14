@@ -71,23 +71,4 @@ public class SessionDBContext extends DBContext<Session> {
         }
         return selist;
     }
-
-    public Lecturer getLecturerByLogin(String login) {
-        try {
-            String sql = "select * from Lecturer where login = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, login);
-            ResultSet rs = stm.executeQuery();
-            Lecturer l = new Lecturer();
-            while (rs.next()) {
-                l.setEmail(rs.getString("email"));
-                l.setLogin(login);
-                l.setName(rs.getString("lectureName"));
-            }
-            return l;
-        } catch (SQLException ex) {
-            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
 }
