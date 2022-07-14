@@ -15,10 +15,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import model.Lecturer;
 import model.Session;
 import model.Slot;
+import model.Week;
 
 /**
  *
@@ -69,8 +73,29 @@ public class TimeTableController extends HttpServlet {
             ArrayList<Session> selist = sedb.SessionListByLecture(l);
             SlotDBContext slotdb = new SlotDBContext();
             ArrayList<Slot> slots = slotdb.getSlot();
+            
+            int year = LocalDate.now().getYear() - 3;
+            ArrayList<Integer> years = new ArrayList<>();
+            for(int i = 0; i<=4 ; i++){
+                years.add(year+i);
+            }
+            request.setAttribute("years", years);
+            
+            LocalDate selectedDate = LocalDate.now();
+            request.setAttribute("selectedDate", selectedDate);
+            LocalDate startDate = LocalDate.of(2022, 01, 03);
+            request.setAttribute("startDate", startDate);
+            ArrayList<Week> weeks = new ArrayList<>();
+            for(int i = 0 ; i < 363 ; i+=7){
+            LocalDate endDate = startDate.plusDays(6);
+            Week w = new Week();
+            w.setEndDate(endDate);
+            w.setStartDate(startDate);
+            weeks.add(w);
+            startDate = endDate.plusDays(1);
         }
-    } 
+        }
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
