@@ -5,21 +5,18 @@
 
 package controller;
 
-import dal.LecturerDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.Lecturer;
 
 /**
  *
  * @author KakaNoob
  */
-public class LecturerController extends HttpServlet {
+public class TimeTableController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +33,10 @@ public class LecturerController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LecturerController</title>");  
+            out.println("<title>Servlet TimeTableController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LecturerController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet TimeTableController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,7 +53,7 @@ public class LecturerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("view/login.jsp").forward(request, response);
+        
     } 
 
     /** 
@@ -69,18 +66,7 @@ public class LecturerController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String login = request.getParameter("user");
-        String pass = request.getParameter("pass");
-        LecturerDBContext db = new LecturerDBContext();
-        Lecturer l = db.LecturerLogin(login, pass);
-        if(l != null){
-            HttpSession session = request.getSession();
-            session.setAttribute("lecturer" , l);
-            request.getRequestDispatcher("");
-        }
-        else{
-            response.sendRedirect("http://localhost:9999/MyAssignment/view/LoginError.jsp");
-        }
+        processRequest(request, response);
     }
 
     /** 
