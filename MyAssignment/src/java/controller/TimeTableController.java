@@ -5,12 +5,20 @@
 
 package controller;
 
+import dal.LecturerDBContext;
+import dal.SessionDBContext;
+import dal.SlotDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import model.Lecturer;
+import model.Session;
+import model.Slot;
 
 /**
  *
@@ -53,7 +61,15 @@ public class TimeTableController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        HttpSession session = request.getSession();
+        if(session.getAttribute("lecturer")!=null){
+            SessionDBContext sedb = new SessionDBContext();
+            LecturerDBContext ledb = new LecturerDBContext();
+            Lecturer l = (Lecturer) session.getAttribute("lecturer");
+            ArrayList<Session> selist = sedb.SessionListByLecture(l);
+            SlotDBContext slotdb = new SlotDBContext();
+            ArrayList<Slot> slots = slotdb.getSlot();
+        }
     } 
 
     /** 

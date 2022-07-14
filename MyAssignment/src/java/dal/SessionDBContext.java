@@ -25,7 +25,7 @@ import model.Subject;
  */
 public class SessionDBContext extends DBContext<Session> {
 
-    public ArrayList<Session> SessionListByLecture(Lecturer l, Date start, Date end) {
+    public ArrayList<Session> SessionListByLecture(Lecturer l) {
         ArrayList<Session> selist = new ArrayList<>();
         try {
             String sql = "select s.sessionID , s.sessionDate , sg.stuGroup,"
@@ -36,11 +36,9 @@ public class SessionDBContext extends DBContext<Session> {
                     + "inner join Lecturer l on sg.lecture_Login = l.[login]\n"
                     + "inner join [Group] g on sg.gname = g.gname\n"
                     + "inner join [Subject] su on sg.subID = su.subID\n"
-                    + "where l.login = ? and s.sessionDate >= ? and s.sessionDate <= ?";
+                    + "where l.login = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, l.getLogin());
-            stm.setDate(2, start);
-            stm.setDate(3, end);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Session s = new Session();
