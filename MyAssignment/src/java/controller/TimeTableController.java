@@ -71,8 +71,11 @@ public class TimeTableController extends HttpServlet {
             LecturerDBContext ledb = new LecturerDBContext();
             Lecturer l = (Lecturer) session.getAttribute("lecturer");
             ArrayList<Session> selist = sedb.SessionListByLecture(l);
+            request.setAttribute("selist", selist);
             SlotDBContext slotdb = new SlotDBContext();
             ArrayList<Slot> slots = slotdb.getSlot();
+            request.setAttribute("slots", slots);
+            
             
             int year = LocalDate.now().getYear() - 3;
             ArrayList<Integer> years = new ArrayList<>();
@@ -94,6 +97,19 @@ public class TimeTableController extends HttpServlet {
             weeks.add(w);
             startDate = endDate.plusDays(1);
         }
+            for(Week week : weeks){
+                for(int i = 0; i < 6 ; i++){
+                    if(week.getStartDate().plusDays(i).equals(selectedDate)){
+                        selectedDate = week.getStartDate();
+                    }else if(week.getStartDate().minusDays(i).equals(selectedDate)){
+                        selectedDate = week.getStartDate();
+                    }
+                }
+            }
+            request.getRequestDispatcher("/view/TimeTable.jsp").forward(request, response);
+        }
+        else{
+            response.sendRedirect(request.getContextPath() + "/login");
         }
     }
 

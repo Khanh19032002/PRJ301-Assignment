@@ -4,6 +4,7 @@
     Author     : KakaNoob
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,7 +18,12 @@
                 border-collapse: collapse;
             }
         </style>
-    </head>
+        <script>
+            function function(){
+                let form = document.getElementById("form");
+                form.submit();
+            }
+        </script>
     <body>
         <div class="container">
             <div class="heading">
@@ -28,21 +34,20 @@
                 </div>
             </div>
             <div class="details">
-                Attendance taking for: <select name="">
-                    <option>Sonnt5</option>
-                    <option></option>
-                </select>
+                Attendance taking for: 
+                <span>${sessionScope.lecturer.getLogin()}</span>
                 <br>
+                <form id="form" action="timetable" method="POST">
                 <table>
                     <thead>
                         <tr>
                             <th>
-                                Year<select>
-                                    <option value="2019">2019</option>
-                                    <option value="2020">2020</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2022">2022</option>
-                                    <option value="2023">2023</option>
+                                Year<select name = "year" onchange="function()">
+                                    <c:forEach items = "${requestScope.years}" var = "y">
+                                        <option value ="${y}" <c:if test = "${requestScope.selectedDate.getYear() eq y}">
+                                                selected = "selected"
+                                        </c:if>>${y}</option>
+                                    </c:forEach>
                                 </select>
                                 </br>
                                 Week<select>
@@ -181,6 +186,7 @@
                         </tr>
                     </tbody>
                 </table>
+                </form>
             </div>
         </div>
     </body>

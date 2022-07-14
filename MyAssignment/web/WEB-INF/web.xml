@@ -14,7 +14,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TimeTableController</servlet-name>
-        <url-pattern>/timetable</url-pattern>
+        <url-pattern>/view/timetable</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
