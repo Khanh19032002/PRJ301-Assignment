@@ -88,11 +88,13 @@
                                     <c:forEach var = "i" begin="0" end="6">
                                         <td>
                                             <c:forEach items = "${requestScope.selist}" var = "se">
-                                                    <c:if test="${sl.slotNo eq se.slot.slotNo && requestScope.selectedDate.plusDays(i) eq se.date.toLocalDate()}" >
-                                                        <a href="">${se.stuGroup.id}</a>
-                                                        <br/>
-                                                        at ${se.room.name}
-                                                    </c:if>
+                                                <c:if test="${sl.slotNo eq se.slot.slotNo && requestScope.selectedDate.plusDays(i) eq se.date.toLocalDate()}" >
+                                                    ${se.stuGroup.id}
+                                                    <br/>
+                                                    at ${se.room.name}
+                                                    <br>
+                                                    <a href="attendance?sid=${se.getId()}">Take Attendance</a>
+                                                </c:if>
                                             </c:forEach>
                                         </td>
                                     </c:forEach>

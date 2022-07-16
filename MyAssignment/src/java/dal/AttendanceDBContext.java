@@ -54,4 +54,8 @@ public class AttendanceDBContext extends DBContext<Attendance> {
         }
         return alist;
     }
+    
+    public void InsertOrUpdate(ArrayList<Attendance> alist){
+        
+    }
 }

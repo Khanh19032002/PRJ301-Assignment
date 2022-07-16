@@ -22,7 +22,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AttendanceTakingController</servlet-name>
-        <url-pattern>/attendance</url-pattern>
+        <url-pattern>/view/attendance</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
