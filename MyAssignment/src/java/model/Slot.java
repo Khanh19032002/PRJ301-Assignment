@@ -50,6 +50,7 @@ public class Slot {
             this.start = Time.valueOf(LocalTime.of(19, 40));
             this.end = Time.valueOf(LocalTime.of(21, 10));
         }
+        this.slotNo = slotNo;
     }
 
     public int getSlotNo() {
