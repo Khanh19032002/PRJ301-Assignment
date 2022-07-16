@@ -69,8 +69,7 @@ public class SessionDBContext extends DBContext<Session> {
         }
         return selist;
     }
-    public ArrayList<Session> listSessionById(int seid){
-        ArrayList<Session> selist = new ArrayList<>();
+    public Session getSessionById(int seid){
         try {
             String sql = "select s.sessionID , s.sessionDate , sg.stuGroup,\n" +
 "                     g.gName , l.[password], l.lectureName ,l.[login] , l.email"
@@ -112,12 +111,11 @@ public class SessionDBContext extends DBContext<Session> {
                 su.setName(rs.getString("subName"));
                 sg.setSubject(su);
                 s.setStuGroup(sg);
-                //Add to sessionlist
-                selist.add(s);
+                return s;
             }
         } catch (SQLException ex) {
             Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return selist;
+        return null;
     }
 }
