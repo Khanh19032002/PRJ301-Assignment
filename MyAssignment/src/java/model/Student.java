@@ -12,15 +12,7 @@ public class Student {
     private String id;
     private String login;
     private String sName;
-    private StudentGroup stuGroup;
-
-    public StudentGroup getStuGroup() {
-        return stuGroup;
-    }
-
-    public void setStuGroup(StudentGroup stuGroup) {
-        this.stuGroup = stuGroup;
-    }
+    
     public Student() {
     }
 
