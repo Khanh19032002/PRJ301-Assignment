@@ -5,12 +5,19 @@
 
 package controller;
 
+import dal.AttendanceDBContext;
+import dal.SessionDBContext;
+import dal.StudentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.Attendance;
+import model.Session;
+import model.Student;
 
 /**
  *
@@ -37,7 +44,21 @@ public class AttendanceTakingController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        StudentDBContext stdb = new StudentDBContext();
+        SessionDBContext sedb = new SessionDBContext();
+        AttendanceDBContext adb = new AttendanceDBContext();
+        int seid = Integer.parseInt(request.getParameter("sid"));
+        Session s = sedb.getSessionById(seid);
+        request.setAttribute("session", s);
+        ArrayList<Attendance> alist = adb.listAttendanceBySession(seid);
+        if(alist.size() == 0){
+            ArrayList<Student> stulist = stdb.listStudentbySession(seid);
+            request.setAttribute("stulist", stulist);
+        }
+        else{
+            request.setAttribute("alist", alist);
+        }
+        request.getRequestDispatcher("../view/Attendance.jsp").forward(request, response);
     } 
 
     /** 
@@ -50,6 +71,7 @@ public class AttendanceTakingController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        
     }
 
     /** 
