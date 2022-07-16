@@ -37,7 +37,7 @@
             </div>
             <div class="details">
                 Attendance taking for:
-                <span>${sessionScope.lecturer.getLogin()}</span>
+                <span>${sessionScope.lecturer.getName()} (${sessionScope.lecturer.getLogin()})</span>
                 <br>
                 <form id="form-table" action="timetable" method="POST">
                     <table border = "1">
@@ -88,8 +88,7 @@
                                     <c:forEach var = "i" begin="0" end="6">
                                         <td>
                                             <c:forEach items = "${requestScope.selist}" var = "se">
-                                                    <c:if test="${sl.slotNo eq se.slot.slotNo && 
-                                                                  requestScope.selectedDate.plusDays(i) eq se.date.toLocalDate()}" >
+                                                    <c:if test="${sl.slotNo eq se.slot.slotNo && requestScope.selectedDate.plusDays(i) eq se.date.toLocalDate()}" >
                                                         <a href="">${se.stuGroup.id}</a>
                                                         <br/>
                                                         at ${se.room.name}

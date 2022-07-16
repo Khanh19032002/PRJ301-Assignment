@@ -16,7 +16,7 @@ public class Session {
     private StudentGroup stuGroup;
     private Room room;
     private Slot slot;
-
+    
     public Session() {
     }
 
