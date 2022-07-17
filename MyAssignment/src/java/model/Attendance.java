@@ -49,5 +49,8 @@ public class Attendance {
         this.session = session;
     }
     
+    public String getStatus(){
+        return this.status ? "P" : "A";
+    }
     
 }

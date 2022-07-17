@@ -5,18 +5,25 @@
 
 package controller;
 
+import dal.AttendanceDBContext;
+import dal.SessionDBContext;
+import dal.StudentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.Attendance;
+import model.Session;
+import model.Student;
 
 /**
  *
  * @author KakaNoob
  */
-public class AttendanceReport extends HttpServlet {
+public class AttendanceReportController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,7 +44,17 @@ public class AttendanceReport extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        String sgid = request.getParameter("sgid");
+        StudentDBContext stdb = new StudentDBContext();
+        SessionDBContext sedb = new SessionDBContext();
+        AttendanceDBContext adb = new AttendanceDBContext();
+        ArrayList<Student> slist = stdb.listStudentbyStuGroup(sgid);
+        ArrayList<Session> selist = sedb.getListSessionByStuGroup(sgid);
+        ArrayList<Attendance> alist = adb.listAttendanceByStudentGroup(sgid);
+        request.setAttribute("slist", slist);
+        request.setAttribute("selist", selist);
+        request.setAttribute("alist", alist);
+        request.getRequestDispatcher("../view/AttendanceReport.jsp").forward(request, response);
     } 
 
     /** 

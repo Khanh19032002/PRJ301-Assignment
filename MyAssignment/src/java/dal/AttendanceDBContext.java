@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Attendance;
+import model.Lecturer;
 import model.Session;
 import model.Student;
+import model.StudentGroup;
 
 /**
  *
@@ -50,6 +52,39 @@ public class AttendanceDBContext extends DBContext {
                 alist.add(a);
             }
 
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return alist;
+    }
+
+    public ArrayList<Attendance> listAttendanceByStudentGroup(String sgid) {
+        ArrayList<Attendance> alist = new ArrayList<>();
+        try {
+            String sql = "  select a.aid , a.[status] , a.stuID , st.[login], st.sName , a.sessionID from Student_Group sg \n"
+                    + " inner join Enroll e on e.stuGroup = sg.stuGroup\n"
+                    + " inner join Student st on st.[sID] = e.[sID]\n"
+                    + " inner join Attend a on a.stuID = st.sID\n"
+                    + " inner join [Session] se on a.sessionID = se.sessionID\n"
+                    + " where sg.stuGroup = ? ";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, sgid);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Attendance a = new Attendance();
+                Student s = new Student();
+                s.setId(rs.getString(3));
+                s.setLogin(rs.getString(4));
+                s.setsName(rs.getString(5));
+                //Session
+                SessionDBContext sdb = new SessionDBContext();
+                Session se = sdb.getSessionById(6);
+                a.setSession(se);
+                a.setStudent(s);
+                a.setStatus(rs.getBoolean(2));
+                a.setId(1);
+                alist.add(a);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }

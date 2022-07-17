@@ -4,6 +4,7 @@
     Author     : KakaNoob
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -34,83 +35,29 @@
             </div>
         </div>
         <div>
-            <h2>Attendance Report for SE1631-PRJ301</h2>
+            <h2>Attendance Report for ${requestScope.sgid}</h2>
             <br>
         </div>
         <div class="table">
             <table>
                 <tr>
-                    <td>RollNumber</td>
-                    <td>StudentName</td>
-                    <td>Absent(%)</td>
-                    <td>09/05</td>
-                    <td>11/05</td>
-                    <td>13/05</td>
-                    <td>16/05</td>
-                    <td>18/05</td>
-                    <td>20/05</td>
-                    <td>23/05</td>
-                    <td>25/05</td>
-                    <td>27/05</td>
-                    <td>30/05</td>
-                    <td>01/06</td>
-                    <td>03/06</td>
-                    <td>06/06</td>
-                    <td>08/06</td>
-                    <td>10/06</td>
-                    <td>13/06</td>
-                    <td>15/06</td>
-                    <td>17/06</td>
-                    <td>20/06</td>
+                    <td>Student ID</td>
+                    <td>Student Name</td>
+                    <c:forEach items="${requestScope.selist}" var = "se">
+                        <td>${se.getDate()}</td>
+                    </c:forEach>
                 </tr>
+                <c:forEach items="${requestScope.slist}" var = "s">
                 <tr>
-                    <td>HE161543</td>
-                    <td>Nguyễn Nam Khánh</td>
-                    <td>9%</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>A</td>
-                    <td>P</td>
-                    <td>A</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>A</td>
+                    <td>${s.getId()}</td>
+                    <td>${s.getsName()}</td>
+                    <c:forEach items = "${requestScope.alist}" var = "a">
+                        <c:if test="${a.getStudent().getId() == s.getId()}">
+                            <td>${a.getStatus()}</td>
+                        </c:if>
+                    </c:forEach>
                 </tr>
-                <tr>
-                    <td>HE161551</td>
-                    <td>Nguyễn Minh Hiếu</td>
-                    <td>12%</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>A</td>
-                    <td>P</td>
-                    <td>A</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>A</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>P</td>
-                    <td>A</td>
-                </tr>
+                </c:forEach>
             </table>
         </div>
     </body>

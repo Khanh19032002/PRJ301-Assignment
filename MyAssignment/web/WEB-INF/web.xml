@@ -18,7 +18,7 @@
     </servlet>
     <servlet>
         <servlet-name>AttendanceReport</servlet-name>
-        <servlet-class>controller.AttendanceReport</servlet-class>
+        <servlet-class>controller.AttendanceReportController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ListGroupController</servlet-name>
