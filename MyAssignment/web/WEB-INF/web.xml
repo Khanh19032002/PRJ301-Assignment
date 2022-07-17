@@ -12,6 +12,14 @@
         <servlet-name>AttendanceTakingController</servlet-name>
         <servlet-class>controller.AttendanceTakingController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeController</servlet-name>
+        <jsp-file>/view/Home.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>AttendanceReport</servlet-name>
+        <servlet-class>controller.AttendanceReport</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LecturerController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>AttendanceTakingController</servlet-name>
         <url-pattern>/view/attendance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeController</servlet-name>
+        <url-pattern>/view/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AttendanceReport</servlet-name>
+        <url-pattern>/view/report</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -42,12 +42,13 @@ public class AttendanceTakingController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-        StudentDBContext stdb = new StudentDBContext();
-        SessionDBContext sedb = new SessionDBContext();
-        AttendanceDBContext adb = new AttendanceDBContext();
+        
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        StudentDBContext stdb = new StudentDBContext();
+        SessionDBContext sedb = new SessionDBContext();
+        AttendanceDBContext adb = new AttendanceDBContext();
         int seid = Integer.parseInt(request.getParameter("seid"));
         Session s = sedb.getSessionById(seid);
         request.setAttribute("session", s);
@@ -72,6 +73,9 @@ public class AttendanceTakingController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        StudentDBContext stdb = new StudentDBContext();
+        SessionDBContext sedb = new SessionDBContext();
+        AttendanceDBContext adb = new AttendanceDBContext();
         int seid = Integer.parseInt(request.getParameter("seid"));
         Session se = sedb.getSessionById(seid);
         String[] aid = request.getParameterValues("aid");
@@ -79,7 +83,7 @@ public class AttendanceTakingController extends HttpServlet {
         String[] stuname = request.getParameterValues("stuname");
         String[] stulogin = request.getParameterValues("stulogin");
         ArrayList<Attendance> alist = new ArrayList<>();
-        for(int i = 0;i < stuid.length;i++){
+        for(int i = 0 ; i < stuid.length ; i++){
             Attendance a = new Attendance();
             if(aid == null){
                 a.setId(-1);

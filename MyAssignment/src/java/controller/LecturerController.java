@@ -76,7 +76,7 @@ public class LecturerController extends HttpServlet {
         if(l != null){
             HttpSession session = request.getSession();
             session.setAttribute("lecturer" , l);
-            response.sendRedirect(request.getContextPath() + "/view/timetable");
+            response.sendRedirect(request.getContextPath() + "/view/home");
         }
         else{
             response.sendRedirect("http://localhost:9999/MyAssignment/view/LoginError.jsp");

@@ -92,6 +92,7 @@ public class TimeTableController extends HttpServlet {
             request.setAttribute("startDate", startDate);
             ArrayList<Week> weeks = new ArrayList<>();
             Week selectedWeek = new Week();
+            //Weeks in a year
             for (int i = 0; i < 365; i += 7) {
                 LocalDate endDate = startDate.plusDays(6);
                 Week w = new Week();
@@ -100,6 +101,7 @@ public class TimeTableController extends HttpServlet {
                 weeks.add(w);
                 startDate = endDate.plusDays(1);
             }
+            //Selected Week
             for (Week week : weeks) {
                 for (int i = 0; i < 6; i++) {
                     if (week.getStartDate().plusDays(i).equals(selectedDate)) {
@@ -116,7 +118,7 @@ public class TimeTableController extends HttpServlet {
             request.setAttribute("selectedWeek", selectedWeek);
             request.setAttribute("selectedDate", selectedDate);
             request.setAttribute("weeks", weeks);
-
+            
             request.getRequestDispatcher("/view/TimeTable.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/login");
@@ -154,6 +156,7 @@ public class TimeTableController extends HttpServlet {
         LocalDate startDate = LocalDate.of(Integer.parseInt(request.getParameter("year")), 01, 03);
         ArrayList<Week> weeks = new ArrayList<>();
         Week selectedWeek = new Week();
+        //Weeks in a year
         for (int i = 0; i < 365; i += 7) {
             LocalDate endDate = startDate.plusDays(6);
             Week w = new Week();
@@ -162,6 +165,7 @@ public class TimeTableController extends HttpServlet {
             weeks.add(w);
             startDate = endDate.plusDays(1);
         }
+        //Selected Week
         for (Week week : weeks) {
             for (int i = 0; i < 6; i++) {
                 if (week.getStartDate().plusDays(i).equals(selectedDate)) {

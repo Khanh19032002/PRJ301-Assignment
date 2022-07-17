@@ -16,7 +16,17 @@
             table , tr , td , th{
                 border: 1px solid black;
                 border-collapse: collapse;
-
+            }
+            table{
+            }
+            th{
+                border-right: 1px solid #fff;
+                text-align: center;
+                padding: 2px;
+                text-transform: uppercase;
+                height: 23px;
+                background-color: #6b90da;
+                font-weight: normal;
             }
         </style>
         <script>
@@ -90,8 +100,33 @@
                                             <c:forEach items = "${requestScope.selist}" var = "se">
                                                 <c:if test="${sl.slotNo eq se.slot.slotNo && requestScope.selectedDate.plusDays(i) eq se.date.toLocalDate()}" >
                                                     ${se.stuGroup.id}
-                                                    <br/>
+                                                    <br>
                                                     at ${se.room.name}
+                                                    <br>
+                                                    <c:if test = "${se.getSlot().getSlotNo() eq 1}">
+                                                        (7:30-9:00)
+                                                    </c:if>
+                                                    <c:if test = "${se.getSlot().getSlotNo() eq 2}">
+                                                        (9:10-10:40)
+                                                    </c:if>
+                                                    <c:if test = "${se.getSlot().getSlotNo() eq 3}">
+                                                        (10:50-12:20)
+                                                    </c:if>
+                                                    <c:if test = "${se.getSlot().getSlotNo() eq 4}">
+                                                        (12:50-14:20)
+                                                    </c:if>
+                                                    <c:if test = "${se.getSlot().getSlotNo() eq 5}">
+                                                        (14:30-4:00)
+                                                    </c:if>
+                                                    <c:if test = "${se.getSlot().getSlotNo() eq 6}">
+                                                        (4:10-5:40)
+                                                    </c:if>
+                                                    <c:if test = "${se.getSlot().getSlotNo() eq 7}">
+                                                        (18:00-19:30)
+                                                    </c:if>
+                                                    <c:if test = "${se.getSlot().getSlotNo() eq 8}">
+                                                        (19:40-21:10)
+                                                    </c:if>
                                                     <br>
                                                     <a href="attendance?seid=${se.getId()}">Take Attendance</a>
                                                 </c:if>

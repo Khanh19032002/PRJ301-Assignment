@@ -29,7 +29,7 @@
         <div>
             Attendance taking for: ${requestScope.session.getStuGroup().getLecturer().getName()}(${requestScope.session.getStuGroup().getLecturer().getLogin()})
             at ${requestScope.session.getStuGroup().getGroup().getName()}
-            <form action="attendance?sid=${requestScope.session.getId()}" method="POST">
+            <form action="attendance" method="POST">
                 <table>
                     <thead>
                         <tr>
