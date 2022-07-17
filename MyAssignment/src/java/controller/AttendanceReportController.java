@@ -54,6 +54,7 @@ public class AttendanceReportController extends HttpServlet {
         request.setAttribute("slist", slist);
         request.setAttribute("selist", selist);
         request.setAttribute("alist", alist);
+        request.setAttribute("sgid", sgid);
         request.getRequestDispatcher("../view/AttendanceReport.jsp").forward(request, response);
     } 
 

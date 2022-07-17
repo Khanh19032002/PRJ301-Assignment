@@ -35,7 +35,7 @@
             </div>
         </div>
         <div>
-            <h2>Attendance Report for ${requestScope.sgid}</h2>
+            <h2>Attendance Report of ${requestScope.sgid}</h2>
             <br>
         </div>
         <div class="table">
