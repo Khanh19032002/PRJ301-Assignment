@@ -17,6 +17,9 @@
             <h1>
                 <span>FPT University Academic Portal</span>
             </h1>
+            <h2>
+                <a href="home">Home</a>
+            </h2>
         </div>
         <div>
             <h3>

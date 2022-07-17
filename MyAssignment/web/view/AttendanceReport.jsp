@@ -32,6 +32,9 @@
                 <h1>
                     <span>FPT University Academic Portal</span>
                 </h1>
+                <h2>
+                    <a href="home">Home</a>/<a href="listgroup">List Groups</a>
+                </h2>
             </div>
         </div>
         <div>
@@ -48,15 +51,15 @@
                     </c:forEach>
                 </tr>
                 <c:forEach items="${requestScope.slist}" var = "s">
-                <tr>
-                    <td>${s.getId()}</td>
-                    <td>${s.getsName()}</td>
-                    <c:forEach items = "${requestScope.alist}" var = "a">
-                        <c:if test="${a.getStudent().getId() == s.getId()}">
-                            <td>${a.getStatus()}</td>
-                        </c:if>
-                    </c:forEach>
-                </tr>
+                    <tr>
+                        <td>${s.getId()}</td>
+                        <td>${s.getsName()}</td>
+                        <c:forEach items = "${requestScope.alist}" var = "a">
+                            <c:if test="${a.getStudent().getId() == s.getId()}">
+                                <td>${a.getStatus()}</td>
+                            </c:if>
+                        </c:forEach>
+                    </tr>
                 </c:forEach>
             </table>
         </div>
