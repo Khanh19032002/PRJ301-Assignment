@@ -16,7 +16,7 @@ import model.Slot;
  *
  * @author KakaNoob
  */
-public class SlotDBContext extends DBContext<Slot> {
+public class SlotDBContext extends DBContext {
 
     public ArrayList<Slot> getSlot() {
         ArrayList<Slot> slots = new ArrayList<>();

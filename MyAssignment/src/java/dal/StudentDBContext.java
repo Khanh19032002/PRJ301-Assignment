@@ -16,7 +16,7 @@ import model.Student;
  *
  * @author KakaNoob
  */
-public class StudentDBContext extends DBContext<Student> {
+public class StudentDBContext extends DBContext {
 
     public ArrayList<Student> listStudentbySession(int seid) {
         ArrayList<Student> slist = new ArrayList<>();

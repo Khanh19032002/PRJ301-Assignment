@@ -23,7 +23,7 @@ import model.Subject;
  *
  * @author KakaNoob
  */
-public class SessionDBContext extends DBContext<Session> {
+public class SessionDBContext extends DBContext {
 
     public ArrayList<Session> SessionListByLecture(Lecturer l) {
         ArrayList<Session> selist = new ArrayList<>();

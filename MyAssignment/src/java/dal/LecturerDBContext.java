@@ -15,7 +15,7 @@ import model.Lecturer;
  *
  * @author KakaNoob
  */
-public class LecturerDBContext extends DBContext<Lecturer>{
+public class LecturerDBContext extends DBContext{
     public Lecturer LecturerLogin(String login , String pass){
         try {
             Lecturer l = new Lecturer();

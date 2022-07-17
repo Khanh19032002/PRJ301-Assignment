@@ -41,17 +41,18 @@ public class AttendanceTakingController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+    
         StudentDBContext stdb = new StudentDBContext();
         SessionDBContext sedb = new SessionDBContext();
         AttendanceDBContext adb = new AttendanceDBContext();
-        int seid = Integer.parseInt(request.getParameter("sid"));
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        int seid = Integer.parseInt(request.getParameter("seid"));
         Session s = sedb.getSessionById(seid);
         request.setAttribute("session", s);
-        ArrayList<Attendance> alist = adb.listAttendanceBySession(seid);
-        if(alist.size() == 0){
+        ArrayList<Attendance> alist = adb.listAttendanceBySession(s.getId());
+        if(alist.isEmpty()){
             ArrayList<Student> stulist = stdb.listStudentbySession(seid);
             request.setAttribute("stulist", stulist);
         }
@@ -71,7 +72,31 @@ public class AttendanceTakingController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        int seid = Integer.parseInt(request.getParameter("seid"));
+        Session se = sedb.getSessionById(seid);
+        String[] aid = request.getParameterValues("aid");
+        String[] stuid = request.getParameterValues("stuid");
+        String[] stuname = request.getParameterValues("stuname");
+        String[] stulogin = request.getParameterValues("stulogin");
+        ArrayList<Attendance> alist = new ArrayList<>();
+        for(int i = 0;i < stuid.length;i++){
+            Attendance a = new Attendance();
+            if(aid == null){
+                a.setId(-1);
+            }else{
+                a.setId(Integer.parseInt(aid[i]));
+            }
+            Student s = new Student();
+            s.setId(stuid[i]);
+            s.setLogin(stulogin[i]);
+            s.setsName(stuname[i]);
+            a.setStudent(s);
+            a.setSession(se);
+            a.setStatus(request.getParameter("status" + i).equals("1"));
+            alist.add(a);
+        }
+        adb.InsertOrUpdate(alist);
+        response.sendRedirect("attendance?seid="+seid);
     }
 
     /** 

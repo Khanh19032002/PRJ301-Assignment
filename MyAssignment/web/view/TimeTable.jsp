@@ -93,7 +93,7 @@
                                                     <br/>
                                                     at ${se.room.name}
                                                     <br>
-                                                    <a href="attendance?sid=${se.getId()}">Take Attendance</a>
+                                                    <a href="attendance?seid=${se.getId()}">Take Attendance</a>
                                                 </c:if>
                                             </c:forEach>
                                         </td>

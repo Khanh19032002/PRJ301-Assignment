@@ -18,21 +18,22 @@ import model.Student;
  *
  * @author KakaNoob
  */
-public class AttendanceDBContext extends DBContext<Attendance> {
+public class AttendanceDBContext extends DBContext {
 
     public ArrayList<Attendance> listAttendanceBySession(int seid) {
         ArrayList<Attendance> alist = new ArrayList<>();
         try {
-            String sql = "select a.aid , s.[sID] , se.sessionID , se.stuGroup ,a.[status] from Attend a \n"
+            String sql = "select a.aid , s.[sID] , s.[login] , s.sName\n"
+                    + ", se.sessionID , se.stuGroup ,a.[status] from Attend a \n"
                     + " inner join [Session] se on a.sessionID = se.sessionID\n"
                     + " inner join Student s on s.[sID] = a.[stuID]\n"
-                    + " left join Enroll e on s.[sID] = e.[sID]\n"
-                    + " left join Student_Group sg on e.stuGroup = sg.stuGroup\n"
+                    + " inner join Enroll e on s.[sID] = e.[sID]\n"
+                    + " inner join Student_Group sg on e.stuGroup = sg.stuGroup\n"
                     + " where se.sessionID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, seid);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Attendance a = new Attendance();
                 a.setId(rs.getInt(1));
                 //Student
@@ -48,14 +49,53 @@ public class AttendanceDBContext extends DBContext<Attendance> {
                 a.setStatus(rs.getBoolean(7));
                 alist.add(a);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return alist;
     }
-    
-    public void InsertOrUpdate(ArrayList<Attendance> alist){
-        
+
+    public void InsertOrUpdate(ArrayList<Attendance> alist) {
+        try {
+            connection.setAutoCommit(false);
+            for (Attendance a : alist) {
+                if (a.getId() == -1) {
+                    String sql = "INSERT INTO [Attend]\n"
+                            + "           ([status]\n"
+                            + "           ,[stuID]\n"
+                            + "           ,[sessionID])\n"
+                            + "     VALUES\n"
+                            + "           (?\n"
+                            + "           ,?\n"
+                            + "           ,?)";
+                    PreparedStatement stm = connection.prepareStatement(sql);
+                    stm.setBoolean(1, a.isStatus());
+                    stm.setString(2, a.getStudent().getId());
+                    stm.setInt(3, a.getSession().getId());
+                    stm.executeUpdate();
+                } else {
+                    String sql = "Update [Attend] set [status] = ? where aid = ?";
+                    PreparedStatement stm = connection.prepareStatement(sql);
+                    stm.setBoolean(1, a.isStatus());
+                    stm.setInt(2, a.getId());
+                    stm.executeUpdate();
+                }
+            }
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

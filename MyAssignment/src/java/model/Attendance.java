@@ -28,10 +28,6 @@ public class Attendance {
     public boolean isStatus() {
         return status;
     }
-    
-    public String getStatus(){
-        return status ? "Attended" : "Absent";
-    }
 
     public void setStatus(boolean status) {
         this.status = status;
