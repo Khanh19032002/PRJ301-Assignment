@@ -20,6 +20,10 @@
         <servlet-name>AttendanceReport</servlet-name>
         <servlet-class>controller.AttendanceReport</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListGroupController</servlet-name>
+        <servlet-class>controller.ListGroupController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LecturerController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>AttendanceReport</servlet-name>
         <url-pattern>/view/report</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListGroupController</servlet-name>
+        <url-pattern>/view/listgroup</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

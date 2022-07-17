@@ -19,6 +19,6 @@
         </div>
         <a href="timetable">Weekly timetable</a>(Timetable to take attendance)
         <br>
-        <a href="report">View Attendance Report</a>(Reports of attendance taking)
+        <a href="listgroup">View Attendance Report</a>(Reports of attendance taking)
     </body>
 </html>

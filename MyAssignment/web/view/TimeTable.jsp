@@ -17,17 +17,6 @@
                 border: 1px solid black;
                 border-collapse: collapse;
             }
-            table{
-            }
-            th{
-                border-right: 1px solid #fff;
-                text-align: center;
-                padding: 2px;
-                text-transform: uppercase;
-                height: 23px;
-                background-color: #6b90da;
-                font-weight: normal;
-            }
         </style>
         <script>
             function FormFunction() {
@@ -43,12 +32,16 @@
                     <h1>
                         <span>FPT University Academic Portal</span>
                     </h1>
+                    <h2>
+                        <a href="home">Home</a>
+                    </h2>
                 </div>
             </div>
             <div class="details">
-                Attendance taking for:
-                <span>${sessionScope.lecturer.getName()} (${sessionScope.lecturer.getLogin()})</span>
-                <br>
+                <h3>
+                    Attendance taking for:
+                    <span>${sessionScope.lecturer.getName()} (${sessionScope.lecturer.getLogin()})</span>
+                </h3>
                 <form id="form-table" action="timetable" method="POST">
                     <table border = "1">
                         <thead>

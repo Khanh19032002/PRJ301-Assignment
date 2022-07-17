@@ -29,10 +29,33 @@ public class StudentDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, seid);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Student s = new Student();
                 s.setLogin(rs.getString(1));
                 s.setId(rs.getString(2));
+                s.setsName(rs.getString(3));
+                slist.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return slist;
+    }
+
+    public ArrayList<Student> listStudentbyStuGroup(String sgid) {
+        ArrayList<Student> slist = new ArrayList<>();
+        try {
+            String sql = " select * from [Student] s \n"
+                    + " inner join Enroll e on e.[sID] = s.[sID]\n"
+                    + " inner join Student_Group sg on e.stuGroup = sg.stuGroup\n"
+                    + " where sg.stuGroup = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, sgid);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Student s = new Student();
+                s.setLogin(rs.getString(2));
+                s.setId(rs.getString(1));
                 s.setsName(rs.getString(3));
                 slist.add(s);
             }

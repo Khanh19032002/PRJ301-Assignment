@@ -24,8 +24,10 @@
             <h1>
                 <span>FPT University Academic Portal</span>
             </h1>
+            <h2>
+                <a href="home">Home</a>/<a href="timetable">Timetable</a>
+            </h2>
         </div>
-
         <div>
             Attendance taking for: ${requestScope.session.getStuGroup().getLecturer().getName()}(${requestScope.session.getStuGroup().getLecturer().getLogin()})
             at ${requestScope.session.getStuGroup().getGroup().getName()}
