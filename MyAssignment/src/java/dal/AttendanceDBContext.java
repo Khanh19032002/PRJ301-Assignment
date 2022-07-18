@@ -29,8 +29,6 @@ public class AttendanceDBContext extends DBContext {
                     + ", se.sessionID , se.stuGroup ,a.[status] from Attend a \n"
                     + " inner join [Session] se on a.sessionID = se.sessionID\n"
                     + " inner join Student s on s.[sID] = a.[stuID]\n"
-                    + " inner join Enroll e on s.[sID] = e.[sID]\n"
-                    + " inner join Student_Group sg on e.stuGroup = sg.stuGroup\n"
                     + " where se.sessionID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, seid);
@@ -51,7 +49,6 @@ public class AttendanceDBContext extends DBContext {
                 a.setStatus(rs.getBoolean(7));
                 alist.add(a);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
