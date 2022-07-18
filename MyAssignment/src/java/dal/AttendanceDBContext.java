@@ -61,12 +61,10 @@ public class AttendanceDBContext extends DBContext {
     public ArrayList<Attendance> listAttendanceByStudentGroup(String sgid) {
         ArrayList<Attendance> alist = new ArrayList<>();
         try {
-            String sql = "  select a.aid , a.[status] , a.stuID , st.[login], st.sName , a.sessionID from Student_Group sg \n"
-                    + " inner join Enroll e on e.stuGroup = sg.stuGroup\n"
-                    + " inner join Student st on st.[sID] = e.[sID]\n"
-                    + " inner join Attend a on a.stuID = st.sID\n"
+            String sql = "  select a.aid , a.[status] , a.stuID , st.[login], st.sName , a.sessionID from Attend a \n"
+                    + " left join Student st on a.stuID = st.[sID]\n"
                     + " inner join [Session] se on a.sessionID = se.sessionID\n"
-                    + " where sg.stuGroup = ? ";
+                    + " where se.stuGroup = ?\n";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, sgid);
             ResultSet rs = stm.executeQuery();

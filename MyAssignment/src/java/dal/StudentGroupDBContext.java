@@ -26,7 +26,7 @@ public class StudentGroupDBContext extends DBContext {
         try {
             String sql = "  select * from Student_Group sg \n"
                     + " inner join Lecturer l on l.[login] = sg.lecture_Login \n"
-                    + " inner join [Group] g on sg.gName = sg.gName\n"
+                    + " inner join [Group] g on g.gName = sg.gName\n"
                     + " inner join [Subject] su on sg.subID = su.subID\n"
                     + " where l.[login] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
