@@ -51,16 +51,14 @@ select * from attend
 --Report sql
  select * from Student_Group sg 
  inner join Lecturer l on l.[login] = sg.lecture_Login 
- inner join [Group] g on sg.gName = sg.gName
+ inner join [Group] g on sg.gName = g.gName
  inner join [Subject] su on sg.subID = su.subID
  where l.[login] = ?
 
- select a.aid , a.[status] , a.stuID , st.[login], st.sName , a.sessionID from Student_Group sg 
- inner join Enroll e on e.stuGroup = sg.stuGroup
- inner join Student st on st.[sID] = e.[sID]
- inner join Attend a on a.stuID = st.sID
+ select a.aid , a.[status] , a.stuID , st.[login], st.sName , a.sessionID from Attend a 
+ left join Student st on a.stuID = st.[sID]
  inner join [Session] se on a.sessionID = se.sessionID
- where sg.stuGroup = ?
+ where se.stuGroup = ?
  
  select s.[sessionID] from [Session] s inner join Student_Group sg on s.stuGroup = sg.stuGroup
  where sg.stuGroup = ?
